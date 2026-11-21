@@ -1,0 +1,75 @@
+---
+layout: layouts/base.njk
+title: "CS Scammers Hall of Fame"
+description: "Confirmed Counter-Strike Steam scammers database — search by SteamID64, alias, or scam method."
+permalink: /scammers/
+eleventyExcludeFromCollections: true
+---
+
+<h1>CS Scammers Hall of Fame</h1>
+
+<p>A community-maintained list of confirmed Steam accounts involved in Counter-Strike skin scams. All entries are reviewed before publication.</p>
+
+<div class="action-bar">
+  <a href="/report-scammer/" class="btn">Report a scammer</a>
+  <span style="font-size: 0.85rem; color: var(--muted);" id="scammer-count">{{ scammers | length }} confirmed entries</span>
+</div>
+
+<div style="margin: 1rem 0 1.25rem;">
+  <input id="scammer-search" type="search" class="field-input" placeholder="Search by SteamID64, alias, URL, or scam method..." aria-label="Search scammers">
+</div>
+
+<div id="scammer-list">
+{% for s in scammers %}
+  <article class="scammer-card" data-search="{{ (s.steamIds | join(' ') + ' ' + s.profiles | join(' ') + ' ' + s.aliases | join(' ') + ' ' + s.type + ' ' + s.description) | lower }}">
+    <div class="scammer-head">
+      <div>
+        {% for url in s.profiles %}
+          <div><a href="{{ url }}" target="_blank" rel="nofollow noopener noreferrer">{{ url }}</a></div>
+        {% endfor %}
+      </div>
+      <span class="scammer-type">{{ s.type }}</span>
+    </div>
+
+    {% if s.steamIds | length > 0 %}
+    <div style="margin: 0.35rem 0; font-size: 0.82rem;">
+      SteamID64:
+      {% for id in s.steamIds %}
+        <code>{{ id }}</code>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if s.aliases | length > 0 %}
+    <div class="alias-list">
+      {% for a in s.aliases %}
+        <span class="alias-chip">{{ a }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <p style="margin: 0.5rem 0 0; font-size: 0.9rem;">{{ s.description }}</p>
+  </article>
+{% endfor %}
+</div>
+
+<p id="scammer-empty" style="display: none; color: var(--muted);">No matching entries found.</p>
+
+<script>
+  const input = document.getElementById('scammer-search');
+  const cards = Array.from(document.querySelectorAll('#scammer-list .scammer-card'));
+  const countEl = document.getElementById('scammer-count');
+  const emptyEl = document.getElementById('scammer-empty');
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    let shown = 0;
+    cards.forEach(card => {
+      const match = !q || card.dataset.search.includes(q);
+      card.style.display = match ? '' : 'none';
+      if (match) shown++;
+    });
+    countEl.textContent = `${shown} of ${cards.length} entries shown`;
+    emptyEl.style.display = shown === 0 ? 'block' : 'none';
+  });
+</script>

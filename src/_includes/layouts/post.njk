@@ -1,0 +1,24 @@
+---
+layout: layouts/base.njk
+---
+
+<h1 id="{{ title | slugify }}"><a href="#{{ title | slugify }}">{{ title }}</a></h1>
+
+<div class="post-meta">
+  <span class="post-date">{{ date | isoDate }}</span>
+  <div class="post-tags-container">
+    {% for tag in tags %}
+      {% if tag != "posts" %}
+        <a href="/tags/{{ tag | lower }}/" class="post-tag">{{ tag }}</a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% if cover %}
+<div class="post-cover-wrap">
+  <img src="{{ cover }}" alt="{{ coverAlt or title }}">
+</div>
+{% endif %}
+
+{{ content | safe }}

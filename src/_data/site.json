@@ -1,0 +1,10 @@
+{
+  "name": "TACTICAL",
+  "domain": "example.com",
+  "url": "https://example.com",
+  "description": "Fast Counter-Strike & FPS community blog theme with interactive config generators.",
+  "email": "contact@example.com",
+  "serverHost": "kz.example.com",
+  "serverBadge": "KZ",
+  "copyrightYear": "2026"
+}

@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Community CS2 KZ Server",
+    "game": "Counter-Strike 2",
+    "mode": "CS2KZ (Kreedz)",
+    "address": "kz.example.com",
+    "webUrl": "https://example.com",
+    "tags": [
+      "kz",
+      "climb",
+      "community"
+    ],
+    "features": [
+      "Official CS2KZ Global API maps",
+      "RockTheVote & curated movement map pool",
+      "Edit src/_data/servers.json to list your own servers"
+    ]
+  }
+]

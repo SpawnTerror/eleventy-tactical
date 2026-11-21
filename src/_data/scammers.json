@@ -1,0 +1,30 @@
+[
+  {
+    "steamIds": [
+      "76561198000000001"
+    ],
+    "profiles": [
+      "https://steamcommunity.com/profiles/76561198000000001"
+    ],
+    "aliases": [
+      "DemoScammer",
+      "FakeMiddleman"
+    ],
+    "type": "Trade Scam (Demo)",
+    "description": "Placeholder entry demonstrating the searchable scammer card layout. Replace entries inside src/_data/scammers.json."
+  },
+  {
+    "steamIds": [
+      "76561198000000002"
+    ],
+    "profiles": [
+      "https://steamcommunity.com/profiles/76561198000000002"
+    ],
+    "aliases": [
+      "PhishDemo",
+      "FreeSkinsBot"
+    ],
+    "type": "Phishing (Demo)",
+    "description": "Second placeholder entry so you can test live instant filtering by alias, SteamID64, or scam type."
+  }
+]

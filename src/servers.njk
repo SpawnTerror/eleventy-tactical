@@ -1,0 +1,43 @@
+---
+layout: layouts/base.njk
+title: "Servers"
+description: "Join the Tactical Counter-Strike 2 KZ server."
+permalink: /servers/
+eleventyExcludeFromCollections: true
+---
+
+<h1>Servers</h1>
+
+{% for srv in servers %}
+<div class="panel">
+  <h2>{{ srv.name }}</h2>
+  <p><strong>Game:</strong> {{ srv.game }} · <strong>Mode:</strong> {{ srv.mode }}</p>
+
+  <pre class="language-text"><code class="language-text">connect {{ srv.address }}</code></pre>
+
+  <div class="action-bar">
+    <a href="steam://connect/{{ srv.address }}" class="btn">Connect via Steam</a>
+    <a href="{{ srv.webUrl }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Server web page</a>
+  </div>
+
+  <ul>
+    {% for feat in srv.features %}
+      <li>{{ feat }}</li>
+    {% endfor %}
+  </ul>
+
+  <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 0;">
+    Server browser tags:
+    {% for t in srv.tags %}
+      <code>{{ t }}</code>{% if not loop.last %} {% endif %}
+    {% endfor %}
+  </p>
+</div>
+{% endfor %}
+
+<h2>Admins</h2>
+<p>If you run into server issues or want to suggest a map, get in touch via the <a href="/contact/">contact page</a> or reach us on Steam:</p>
+<ul>
+  <li><a href="https://steamcommunity.com/id/spawnterror" target="_blank" rel="noopener noreferrer">Tactical on Steam</a></li>
+  <li><a href="https://steamcommunity.com/id/KZMOD/" target="_blank" rel="noopener noreferrer">HyperionTitan on Steam</a></li>
+</ul>

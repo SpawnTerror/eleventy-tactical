@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ description or site.description }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <title>{{ title }} · {{ site.name }}</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><polygon points='16,2 29,9.5 29,22.5 16,30 3,22.5 3,9.5' fill='%230d1117' stroke='%2338bdf8' stroke-width='2'/><circle cx='16' cy='16' r='5' fill='none' stroke='%2338bdf8' stroke-width='2'/><line x1='16' y1='6' x2='16' y2='10' stroke='%2338bdf8' stroke-width='2'/><line x1='16' y1='22' x2='16' y2='26' stroke='%2338bdf8' stroke-width='2'/><line x1='6' y1='16' x2='10' y2='16' stroke='%2338bdf8' stroke-width='2'/><line x1='22' y1='16' x2='26' y2='16' stroke='%2338bdf8' stroke-width='2'/><circle cx='16' cy='16' r='1.5' fill='%2338bdf8'/></svg>">
+  <style>
+    {% include "css/main.css" %}
+  </style>
+  <link id="prism-theme" rel="stylesheet" href="/css/prism/dark-green.css">
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('st_theme');
+      const theme = savedTheme ? savedTheme : 'dark';
+      const savedAccent = localStorage.getItem('st_accent');
+      const accent = savedAccent ? savedAccent : 'ct';
+
+      if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      if (accent === 'ct') document.documentElement.setAttribute('data-accent', 'ct');
+      if (localStorage.getItem('st_crt') === 'on') document.documentElement.setAttribute('data-crt', 'on');
+
+      const prismAccent = accent === 'ct' ? 'green' : 'orange';
+      document.getElementById('prism-theme').href = `/css/prism/${theme}-${prismAccent}.css`;
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-top">
+      <a href="/" class="site-logo" aria-label="{{ site.name }} Home">
+        {% include "logo.svg" %}
+      </a>
+
+      <div class="header-controls">
+        <button id="accent-toggle" aria-label="Switch side colour" title="Switch palette (T-Side Amber / CT-Side Blue)">CT-SIDE</button>
+        <button id="crt-toggle" aria-label="Toggle CRT scanlines" title="Toggle CRT scanlines">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+            <line x1="6" y1="7" x2="18" y2="7"></line>
+            <line x1="6" y1="10" x2="18" y2="10"></line>
+            <line x1="6" y1="13" x2="18" y2="13"></line>
+          </svg>
+        </button>
+        <button id="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle light/dark theme">
+          <svg id="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <svg id="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="hud-bar">
+      <div class="hud-chip hud-op" title="Last CS Operation: {{ operation.lastOperation }} (Released {{ operation.releaseDate }} · Ended {{ operation.endDate }} · {{ operation.duration }})">
+        <span class="hud-dot" aria-hidden="true"></span>
+        <span class="hud-label"><span class="hud-long">SINCE </span>{{ operation.shortName | upper }}</span>
+        <strong class="hud-val" id="op-days" data-end="{{ operation.endDate }}">—</strong>
+      </div>
+      <a href="/servers/" class="hud-chip hud-server" title="Connect to {{ site.name }} Community Server">
+        <span class="hud-badge">{{ site.serverBadge }}</span>
+        <span class="hud-host">{{ site.serverHost }}</span>
+      </a>
+    </div>
+
+    <nav class="site-nav" id="site-nav">
+      <a href="/archive/">archive/</a>
+      <a href="/topics/">topics/</a>
+      <a href="/autoexec-generator/">autoexec/</a>
+      <a href="/practice-config/">practice/</a>
+      <a href="/servers/">servers/</a>
+      <a href="/scammers/">scammers/</a>
+    </nav>
+  </header>
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <footer>
+    <div class="footer-brand">© {{ site.copyrightYear }} {{ site.domain }}</div>
+    <div class="footer-links">
+      <a href="/contact/">contact/</a>
+      <span aria-hidden="true">·</span>
+      <a href="/privacy-policy/">privacy/</a>
+      <span aria-hidden="true">·</span>
+      <a href="/report-scammer/">report scammer/</a>
+    </div>
+    <div class="footer-top">
+      <a href="#">top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    const htmlEl = document.documentElement;
+    const prismLink = document.getElementById('prism-theme');
+
+    /* Live Days Since Last Operation Counter */
+    (function() {
+      const el = document.getElementById('op-days');
+      if (!el) return;
+      const endStr = el.getAttribute('data-end');
+      const endMs = Date.parse(endStr + 'T00:00:00Z');
+      if (!isNaN(endMs)) {
+        const days = Math.max(0, Math.floor((Date.now() - endMs) / 86400000));
+        el.textContent = days.toLocaleString() + 'd';
+      }
+    })();
+
+    function syncPrism() {
+      const theme = htmlEl.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const accent = htmlEl.getAttribute('data-accent') === 'ct' ? 'green' : 'orange';
+      prismLink.href = `/css/prism/${theme}-${accent}.css`;
+    }
+
+    const themeBtn = document.getElementById('theme-toggle');
+    const moon = document.getElementById('moon-icon');
+    const sun = document.getElementById('sun-icon');
+
+    function syncThemeIcon() {
+      const isDark = htmlEl.getAttribute('data-theme') === 'dark';
+      moon.style.display = isDark ? 'none' : 'block';
+      sun.style.display = isDark ? 'block' : 'none';
+    }
+    syncThemeIcon();
+
+    themeBtn.addEventListener('click', () => {
+      const isDark = htmlEl.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        htmlEl.removeAttribute('data-theme');
+        localStorage.setItem('st_theme', 'light');
+      } else {
+        htmlEl.setAttribute('data-theme', 'dark');
+        localStorage.setItem('st_theme', 'dark');
+      }
+      syncThemeIcon();
+      syncPrism();
+    });
+
+    const accentBtn = document.getElementById('accent-toggle');
+    function syncAccentLabel() {
+      accentBtn.textContent = htmlEl.getAttribute('data-accent') === 'ct' ? 'CT-SIDE' : 'T-SIDE';
+    }
+    syncAccentLabel();
+
+    accentBtn.addEventListener('click', () => {
+      const isCt = htmlEl.getAttribute('data-accent') === 'ct';
+      if (isCt) {
+        htmlEl.removeAttribute('data-accent');
+        localStorage.setItem('st_accent', 't');
+      } else {
+        htmlEl.setAttribute('data-accent', 'ct');
+        localStorage.setItem('st_accent', 'ct');
+      }
+      syncAccentLabel();
+      syncPrism();
+    });
+
+    const crtBtn = document.getElementById('crt-toggle');
+    function syncCrtBtn() {
+      crtBtn.classList.toggle('active', htmlEl.getAttribute('data-crt') === 'on');
+    }
+    syncCrtBtn();
+
+    crtBtn.addEventListener('click', () => {
+      const isCrt = htmlEl.getAttribute('data-crt') === 'on';
+      if (isCrt) {
+        htmlEl.removeAttribute('data-crt');
+        localStorage.setItem('st_crt', 'off');
+      } else {
+        htmlEl.setAttribute('data-crt', 'on');
+        localStorage.setItem('st_crt', 'on');
+      }
+      syncCrtBtn();
+    });
+
+    /* Copy button on syntax-highlighted code blocks */
+    document.querySelectorAll('pre[class*="language-"]').forEach(pre => {
+      const btn = document.createElement('button');
+      btn.className = 'copy-code-btn';
+      btn.textContent = 'copy';
+      btn.addEventListener('click', () => {
+        const codeText = pre.querySelector('code').innerText;
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(codeText).then(showSuccess);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = codeText;
+          ta.style.position = 'absolute';
+          ta.style.left = '-999999px';
+          document.body.prepend(ta);
+          ta.select();
+          try { document.execCommand('copy'); showSuccess(); } catch (e) {}
+          finally { ta.remove(); }
+        }
+        function showSuccess() {
+          btn.textContent = 'copied!';
+          btn.classList.add('copied');
+          setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 2000);
+        }
+      });
+      pre.appendChild(btn);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+---
+layout: layouts/base.njk
+title: "Report a Scammer"
+description: "Submit a confirmed Steam scammer profile for review."
+permalink: /report-scammer/
+eleventyExcludeFromCollections: true
+---
+
+<h1>Report a scammer</h1>
+
+<p>Fill in the details below to prepare a scammer report for <code>{{ site.email }}</code>. We review evidence before adding any profile to the <a href="/scammers/">Scammers Hall of Fame</a>. Please attach screenshots or trade-history proof in your email.</p>
+
+<form id="report-form" class="panel" onsubmit="return false;">
+  <div class="field-grid">
+    <label class="field-label">
+      Your name / handle
+      <input type="text" id="rep-name" class="field-input" placeholder="Optional">
+    </label>
+    <label class="field-label">
+      Your Steam profile URL
+      <input type="url" id="rep-your-steam" class="field-input" placeholder="https://steamcommunity.com/profiles/...">
+    </label>
+  </div>
+
+  <div class="field-grid" style="margin-top: 0.85rem;">
+    <label class="field-label">
+      Scammer Steam profile URL or SteamID64 *
+      <input type="text" id="rep-scammer" class="field-input" placeholder="https://steamcommunity.com/profiles/7656119..." required>
+    </label>
+    <label class="field-label">
+      Known aliases
+      <input type="text" id="rep-aliases" class="field-input" placeholder="Comma-separated names">
+    </label>
+  </div>
+
+  <label class="field-label" style="margin-top: 0.85rem;">
+    What happened? (Include scam method and links to screenshots/proof) *
+    <textarea id="rep-desc" class="field-textarea" rows="5" placeholder="Describe how the scam occurred..." required></textarea>
+  </label>
+
+  <div class="action-bar">
+    <button type="button" id="rep-mailto" class="btn">Open in email app</button>
+    <button type="button" id="rep-copy" class="btn btn-secondary">Copy report text</button>
+  </div>
+  <p style="margin: 0; font-size: 0.82rem; color: var(--muted);">Direct email: <a href="mailto:{{ site.email }}?subject=Scammer%20Report">{{ site.email }}</a></p>
+</form>
+
+<script>
+(function() {
+  const $ = id => document.getElementById(id);
+  function formatReport() {
+    return [
+      'Scammer Report ({{ site.domain }})',
+      '--------------------------------',
+      `Scammer Steam Profile / ID: ${$('rep-scammer').value.trim() || '(not provided)'}`,
+      `Known Aliases: ${$('rep-aliases').value.trim() || '(not provided)'}`,
+      `Reporter Name: ${$('rep-name').value.trim() || '(anonymous)'}`,
+      `Reporter Steam Profile: ${$('rep-your-steam').value.trim() || '(not provided)'}`,
+      '',
+      'Description & Proof:',
+      $('rep-desc').value.trim() || '(not provided)'
+    ].join('\n');
+  }
+
+  $('rep-mailto').addEventListener('click', () => {
+    const subject = encodeURIComponent('Scammer Report — {{ site.domain }}');
+    const body = encodeURIComponent(formatReport());
+    window.location.href = `mailto:{{ site.email }}?subject=${subject}&body=${body}`;
+  });
+
+  $('rep-copy').addEventListener('click', () => {
+    const btn = $('rep-copy');
+    const text = formatReport();
+    const done = () => {
+      btn.textContent = 'Copied! Send to {{ site.email }}';
+      setTimeout(() => { btn.textContent = 'Copy report text'; }, 2500);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done);
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+      done();
+    }
+  });
+})();
+</script>

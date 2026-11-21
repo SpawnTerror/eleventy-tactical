@@ -1,0 +1,39 @@
+---
+layout: layouts/base.njk
+title: "Topics"
+permalink: /topics/
+eleventyExcludeFromCollections: true
+---
+
+<h1>Topics</h1>
+<p>All Counter-Strike articles grouped into three focused topics.</p>
+
+{% set topics = [
+  {
+    title: "Tutorials",
+    slug: "tutorials",
+    description: "CS2 and CS:GO guides, FPS optimization, launch options, DPI and sensitivity breakdowns, autoexec and practice configs."
+  },
+  {
+    title: "News",
+    slug: "news",
+    description: "Counter-Strike tournaments, Majors, pro scene stories, map reworks, Operations, and community commentary."
+  },
+  {
+    title: "Updates",
+    slug: "updates",
+    description: "Counter-Strike patch notes, gameplay adjustments, map fixes, and Valve release logs."
+  }
+] %}
+
+{% for topic in topics %}
+  {% set topicPosts = collections[topic.title] or collections[topic.slug] %}
+  {% set count = topicPosts | length if topicPosts else 0 %}
+  <div class="topic-item">
+    <div class="topic-header">
+      <a href="/tags/{{ topic.slug }}/" class="topic-title">{{ topic.title }}</a>
+      <span class="topic-count">{{ count }} {{ "article" if count == 1 else "articles" }}</span>
+    </div>
+    <p class="topic-description">{{ topic.description }}</p>
+  </div>
+{% endfor %}

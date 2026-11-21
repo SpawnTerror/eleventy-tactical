@@ -1,0 +1,22 @@
+{
+  "name": "eleventy-tactical",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npx @11ty/eleventy",
+    "build:drafts": "ELEVENTY_ENV=dev npx @11ty/eleventy",
+    "watch:drafts": "ELEVENTY_ENV=dev npx @11ty/eleventy --watch"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-img": "^7.1.1"
+  },
+  "dependencies": {
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
+    "markdown-it": "^15.0.3",
+    "markdown-it-anchor": "^10.1.0",
+    "markdown-it-container": "^4.0.0"
+  },
+  "description": "A fast Eleventy 3 gaming & FPS community blog theme with 16:9 cover cards, dual T-Side/CT-Side palettes, aim crosshair cursor, live HUD timer, and client-side config generators.",
+  "license": "MIT"
+}

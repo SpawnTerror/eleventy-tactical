@@ -1,0 +1,375 @@
+<form id="practice-form" onsubmit="return false;">
+  <div class="panel">
+    <h2>Game mode &amp; round rules</h2>
+    <div class="field-grid" style="margin-bottom: 0.65rem;">
+      <label class="field-label">
+        Base game mode
+        <select id="prac-mode" class="field-select">
+          <option value="casual" selected>Casual (game_mode 0 — recommended)</option>
+          <option value="competitive">Competitive (game_mode 1)</option>
+        </select>
+      </label>
+      <label class="field-label">
+        Round time (minutes)
+        <input type="number" id="prac-roundtime" class="field-input" value="60" min="1" max="60" step="1">
+      </label>
+    </div>
+    <label class="check-row">
+      <input type="checkbox" id="prac-economy" checked>
+      <span>Unlimited cash &amp; buy anywhere (<code>mp_maxmoney 60000</code>, <code>mp_buy_anywhere 1</code>, <code>mp_buytime 9999</code>)</span>
+    </label>
+    <label class="check-row">
+      <input type="checkbox" id="prac-respawn" checked>
+      <span>Instant respawn on death for both teams (<code>mp_respawn_on_death_ct/t 1</code>)</span>
+    </label>
+    <label class="check-row">
+      <input type="checkbox" id="prac-warmup" checked>
+      <span>End warmup immediately &amp; disable freeze time / team limits</span>
+    </label>
+    <label class="check-row">
+      <input type="checkbox" id="prac-ffa" checked>
+      <span>Treat teammates as enemies for aim drills (<code>mp_teammates_are_enemies 1</code>)</span>
+    </label>
+  </div>
+
+  <div class="panel">
+    <h2>Player, god mode &amp; noclip</h2>
+    <div class="field-grid" style="margin-bottom: 0.65rem;">
+      <label class="field-label">
+        Noclip toggle key
+        <select id="prac-noclip-key" class="field-select">
+          <option value="mouse3" selected>Mouse 3 (middle click)</option>
+          <option value="n">N key</option>
+          <option value="v">V key</option>
+          <option value="alt">Alt key</option>
+          <option value="none">Do not bind</option>
+        </select>
+      </label>
+      <label class="field-label">
+        Health regeneration delay (seconds)
+        <input type="number" id="prac-regen-wait" class="field-input" value="0.5" min="0" max="10" step="0.1">
+      </label>
+    </div>
+    <label class="check-row">
+      <input type="checkbox" id="prac-buddha" checked>
+      <span>Enable buddha mode &amp; ignore bot damage (<code>buddha</code>, <code>buddha_ignore_bots 1</code>)</span>
+    </label>
+    <label class="check-row">
+      <input type="checkbox" id="prac-regen" checked>
+      <span>Enable automatic health regeneration (<code>sv_regeneration_force_on 1</code>)</span>
+    </label>
+  </div>
+
+  <div class="panel">
+    <h2>Bots &amp; peeking drills</h2>
+    <div class="field-grid" style="margin-bottom: 0.65rem;">
+      <label class="field-label">
+        Bot quota (<code>bot_quota</code>)
+        <input type="number" id="prac-bot-quota" class="field-input" value="2" min="0" max="10" step="1">
+      </label>
+      <label class="field-label">
+        Place bot key (<code>bot_place</code>)
+        <select id="prac-bot-place-key" class="field-select">
+          <option value="mouse4" selected>Mouse 4 (side button)</option>
+          <option value="b">B key</option>
+          <option value="p">P key</option>
+          <option value="none">Do not bind (run once)</option>
+        </select>
+      </label>
+      <label class="field-label">
+        Toggle bot crouch key
+        <select id="prac-bot-crouch-key" class="field-select">
+          <option value="i" selected>I key</option>
+          <option value="c">C key</option>
+          <option value="none">Do not bind</option>
+        </select>
+      </label>
+    </div>
+    <label class="check-row">
+      <input type="checkbox" id="prac-bot-static" checked>
+      <span>Kick existing bots, freeze position, disable shooting &amp; chatter (<code>bot_stop 1</code>, <code>bot_dont_shoot 1</code>)</span>
+    </label>
+  </div>
+
+  <div class="panel">
+    <h2>Weapons &amp; grenades</h2>
+    <div class="field-grid" style="margin-bottom: 0.65rem;">
+      <label class="field-label">
+        Infinite ammo mode
+        <select id="prac-ammo" class="field-select">
+          <option value="1" selected>Unlimited ammo, no reload (sv_infinite_ammo 1)</option>
+          <option value="2">Unlimited reserve, reload enabled (sv_infinite_ammo 2)</option>
+          <option value="0">Standard ammo (off)</option>
+        </select>
+      </label>
+      <label class="field-label">
+        Default spawn weapons
+        <select id="prac-loadout" class="field-select">
+          <option value="rifles" selected>AK-47 (T) / M4A4 (CT) + Deagle</option>
+          <option value="m4a1s">AK-47 (T) / M4A1-S (CT) + Deagle</option>
+          <option value="awp">AWP + Deagle (both sides)</option>
+          <option value="none">Keep default spawn weapons</option>
+        </select>
+      </label>
+      <label class="field-label">
+        Re-throw last grenade key
+        <select id="prac-rethrow-key" class="field-select">
+          <option value="mouse5" selected>Mouse 5 (side button)</option>
+          <option value="t">T key</option>
+          <option value="x">X key</option>
+          <option value="none">Do not bind</option>
+        </select>
+      </label>
+    </div>
+    <label class="check-row">
+      <input type="checkbox" id="prac-all-nades" checked>
+      <span>Spawn with all 5 grenades &amp; allow 5 total (HE, smoke, flash, molotov, decoy)</span>
+    </label>
+    <label class="check-row">
+      <input type="checkbox" id="prac-nade-preview" checked>
+      <span>Enable live grenade trajectory preview (<code>sv_grenade_trajectory_prac_pipreview 1</code>)</span>
+    </label>
+    <label class="check-row">
+      <input type="checkbox" id="prac-no-self-nade" checked>
+      <span>Disable self-damage from grenades (<code>ff_damage_reduction_grenade_self 0</code>)</span>
+    </label>
+    <label class="check-row">
+      <input type="checkbox" id="prac-drop-knife" checked>
+      <span>Allow dropping knife &amp; unlimited weapon buys (<code>mp_drop_knife_enable 1</code>)</span>
+    </label>
+  </div>
+
+  <div class="panel">
+    <h2>Visuals, cleanup &amp; screenshot mode</h2>
+    <label class="check-row">
+      <input type="checkbox" id="prac-impacts" checked>
+      <span>Show bullet impacts for 10 seconds (<code>sv_showimpacts 2</code>)</span>
+    </label>
+    <label class="check-row">
+      <input type="checkbox" id="prac-molly" checked>
+      <span>Shorten Molotov / Incendiary burn duration to 3 seconds (<code>inferno_flame_lifetime 3</code>)</span>
+    </label>
+    <label class="check-row">
+      <input type="checkbox" id="prac-cleanup" checked>
+      <span>Auto-clean dropped weapons on the ground (keeps FPS steady)</span>
+    </label>
+    <label class="check-row">
+      <input type="checkbox" id="prac-comms" checked>
+      <span>Enable alltalk &amp; mute grenade radio chatter (<code>sv_full_alltalk 1</code>, <code>sv_ignoregrenaderadio 1</code>)</span>
+    </label>
+    <label class="check-row">
+      <input type="checkbox" id="prac-screenshots" checked>
+      <span>Include Screenshot Mode binds: press <code>O</code> to hide HUD/viewmodel, <code>P</code> to restore</span>
+    </label>
+  </div>
+</form>
+
+<div class="panel">
+  <h2>Generated <code>practice.cfg</code></h2>
+  <div class="action-bar">
+    <button type="button" id="prac-download" class="btn">Download practice.cfg</button>
+    <button type="button" id="prac-copy" class="btn btn-secondary">Copy to clipboard</button>
+    <button type="button" id="prac-reset" class="btn btn-secondary">Reset defaults</button>
+  </div>
+  <textarea id="prac-output" class="cfg-output" readonly spellcheck="false"></textarea>
+</div>
+
+<script>
+(function() {
+  const $ = id => document.getElementById(id);
+
+  function buildPracticeConfig() {
+    const mode = $('prac-mode').value;
+    const roundtime = Math.max(1, Math.min(60, parseInt($('prac-roundtime').value, 10) || 60));
+    const botQuota = Math.max(0, Math.min(10, parseInt($('prac-bot-quota').value, 10) || 0));
+    const regenWait = parseFloat($('prac-regen-wait').value);
+    const regenWaitVal = isNaN(regenWait) ? 0.5 : Math.max(0, regenWait);
+
+    const lines = [
+      '// Practice config for Counter-Strike 2',
+      '// Generated at https://example.com/practice-config/',
+      '',
+      '// --- Game Mode Settings ---',
+      mode === 'competitive' ? 'game_mode 1' : 'game_mode 0',
+      mode === 'competitive' ? 'exec gamemode_competitive' : 'exec gamemode_casual',
+      'sv_cheats 1'
+    ];
+
+    lines.push('', '// --- Bot Settings ---');
+    if ($('prac-bot-static').checked) {
+      lines.push('bot_kick');
+      lines.push(`bot_quota ${botQuota}`);
+      lines.push('bot_stop 1');
+      lines.push('bot_dont_shoot 1');
+      lines.push('bot_chatter off');
+      lines.push('bot_mimic -2');
+    } else {
+      lines.push(`bot_quota ${botQuota}`);
+    }
+    const botPlaceKey = $('prac-bot-place-key').value;
+    if (botPlaceKey !== 'none') {
+      lines.push(`bind ${botPlaceKey} "bot_place"`);
+    } else if ($('prac-bot-static').checked) {
+      lines.push('bot_place');
+    }
+    const botCrouchKey = $('prac-bot-crouch-key').value;
+    if (botCrouchKey !== 'none') {
+      lines.push(`bind ${botCrouchKey} "toggle bot_crouch 0 1"`);
+    }
+
+    lines.push('', '// --- Player Settings ---');
+    if ($('prac-buddha').checked) {
+      lines.push('buddha');
+      lines.push('buddha_ignore_bots 1');
+    }
+    if ($('prac-regen').checked) {
+      lines.push('sv_regeneration_force_on 1');
+      lines.push(`sv_regeneration_wait_time ${regenWaitVal}`);
+    }
+    const noclipKey = $('prac-noclip-key').value;
+    if (noclipKey !== 'none') {
+      lines.push(`bind ${noclipKey} "noclip"`);
+    }
+
+    lines.push('', '// --- Weapon Settings ---');
+    const ammoMode = $('prac-ammo').value;
+    if (ammoMode !== '0') {
+      lines.push(`sv_infinite_ammo ${ammoMode}`);
+    }
+    const loadout = $('prac-loadout').value;
+    if (loadout === 'rifles') {
+      lines.push('mp_t_default_primary weapon_ak47');
+      lines.push('mp_t_default_secondary weapon_deagle');
+      lines.push('mp_ct_default_primary weapon_m4a1');
+      lines.push('mp_ct_default_secondary weapon_deagle');
+    } else if (loadout === 'm4a1s') {
+      lines.push('mp_t_default_primary weapon_ak47');
+      lines.push('mp_t_default_secondary weapon_deagle');
+      lines.push('mp_ct_default_primary weapon_m4a1_silencer');
+      lines.push('mp_ct_default_secondary weapon_deagle');
+    } else if (loadout === 'awp') {
+      lines.push('mp_t_default_primary weapon_awp');
+      lines.push('mp_t_default_secondary weapon_deagle');
+      lines.push('mp_ct_default_primary weapon_awp');
+      lines.push('mp_ct_default_secondary weapon_deagle');
+    }
+    if ($('prac-all-nades').checked) {
+      lines.push('ammo_grenade_limit_total 5');
+      lines.push('ammo_grenade_limit_flashbang 1');
+      lines.push('mp_t_default_grenades "weapon_hegrenade weapon_smokegrenade weapon_flashbang weapon_molotov weapon_decoy"');
+      lines.push('mp_ct_default_grenades "weapon_hegrenade weapon_smokegrenade weapon_flashbang weapon_molotov weapon_decoy"');
+    }
+    if ($('prac-drop-knife').checked) {
+      lines.push('mp_weapons_allow_typecount -1');
+      lines.push('mp_drop_knife_enable 1');
+      lines.push('mp_death_drop_gun 1');
+    }
+
+    lines.push('', '// --- Grenade Settings ---');
+    if ($('prac-no-self-nade').checked) {
+      lines.push('ff_damage_reduction_grenade_self 0');
+    }
+    const rethrowKey = $('prac-rethrow-key').value;
+    if (rethrowKey !== 'none') {
+      lines.push(`bind ${rethrowKey} "sv_rethrow_last_grenade"`);
+    }
+    if ($('prac-nade-preview').checked) {
+      lines.push('sv_grenade_trajectory_prac_pipreview 1');
+    }
+
+    lines.push('', '// --- Round Settings ---');
+    lines.push(`mp_roundtime ${roundtime}`);
+    lines.push(`mp_roundtime_defuse ${roundtime}`);
+    if ($('prac-economy').checked) {
+      lines.push('mp_maxmoney 60000');
+      lines.push('mp_startmoney 60000');
+      lines.push('mp_buytime 9999');
+      lines.push('mp_buy_anywhere 1');
+    }
+    if ($('prac-warmup').checked) {
+      lines.push('mp_limitteams 0');
+      lines.push('mp_autoteambalance 0');
+      lines.push('mp_freezetime 0');
+      lines.push('mp_tkpunish 0');
+      lines.push('mp_warmup_end');
+    }
+    if ($('prac-respawn').checked) {
+      lines.push('mp_respawn_on_death_ct 1');
+      lines.push('mp_respawn_on_death_t 1');
+    }
+    if ($('prac-ffa').checked) {
+      lines.push('mp_teammates_are_enemies 1');
+    }
+
+    if ($('prac-impacts').checked || $('prac-molly').checked) {
+      lines.push('', '// --- Visual Settings ---');
+      if ($('prac-impacts').checked) {
+        lines.push('sv_showimpacts 2');
+        lines.push('sv_showimpacts_time 10');
+      }
+      if ($('prac-molly').checked) {
+        lines.push('inferno_flame_lifetime 3');
+      }
+    }
+
+    if ($('prac-cleanup').checked) {
+      lines.push('', '// --- Weapon Cleanup ---');
+      lines.push('weapon_auto_cleanup_time 10');
+      lines.push('weapon_max_before_cleanup 5');
+    }
+
+    if ($('prac-comms').checked) {
+      lines.push('', '// --- Communication Settings ---');
+      lines.push('sv_deadtalk 1');
+      lines.push('sv_full_alltalk 1');
+      lines.push('sv_ignoregrenaderadio 1');
+    }
+
+    if ($('prac-screenshots').checked) {
+      lines.push('', '// --- Screenshot Mode (O = hide HUD, P = restore HUD) ---');
+      lines.push('bind o "r_drawviewmodel 0; cl_draw_only_deathnotices 1; crosshair 0; cl_hud_telemetry_net_quality_graph_show 0; cl_hud_telemetry_net_misdelivery_show 0; cl_hud_telemetry_ping_show 0; r_show_build_info 0; cl_hud_telemetry_frametime_show 0"');
+      lines.push('bind p "r_drawviewmodel 1; cl_draw_only_deathnotices 0; crosshair 1; cl_hud_telemetry_net_quality_graph_show 2; cl_hud_telemetry_net_misdelivery_show 2; cl_hud_telemetry_ping_show 2; r_show_build_info 1; cl_hud_telemetry_frametime_show 2"');
+    }
+
+    lines.push('', 'mp_restartgame 1', 'echo "Tactical CS2 practice.cfg loaded!"', '');
+    $('prac-output').value = lines.join('\n');
+  }
+
+  $('practice-form').addEventListener('input', buildPracticeConfig);
+  $('practice-form').addEventListener('change', buildPracticeConfig);
+  buildPracticeConfig();
+
+  $('prac-download').addEventListener('click', () => {
+    const blob = new Blob([$('prac-output').value], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'practice.cfg';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  });
+
+  $('prac-copy').addEventListener('click', () => {
+    const text = $('prac-output').value;
+    const btn = $('prac-copy');
+    const done = () => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = 'Copy to clipboard'; }, 2000);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done);
+    } else {
+      $('prac-output').select();
+      document.execCommand('copy');
+      done();
+    }
+  });
+
+  $('prac-reset').addEventListener('click', () => {
+    $('practice-form').reset();
+    buildPracticeConfig();
+  });
+})();
+</script>

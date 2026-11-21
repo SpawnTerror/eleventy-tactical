@@ -1,0 +1,48 @@
+---
+layout: layouts/base.njk
+title: "Archive"
+permalink: /archive/
+eleventyExcludeFromCollections: true
+---
+
+<h1 id="archive"><a href="#archive">Archive</a></h1>
+
+<div style="margin-bottom: 1.25rem;">
+  <input id="archive-filter" type="search" class="field-input" placeholder="Filter {{ collections.posts | length }} articles by title or topic..." aria-label="Filter articles">
+</div>
+
+<ul class="post-cards" id="archive-list">
+{% for post in collections.posts %}
+  <li class="post-card" data-search="{{ (post.data.title + ' ' + (post.data.tags | join(' '))) | lower }}">
+    {% if post.data.cover %}
+    <a href="{{ post.url }}" class="post-card-thumb" tabindex="-1" aria-hidden="true">
+      <img src="{{ post.data.cover }}" alt="{{ post.data.coverAlt or post.data.title }}" sizes="160px">
+    </a>
+    {% endif %}
+    <div class="post-card-body">
+      <a href="{{ post.url }}" class="post-card-title">{{ post.data.title }}</a>
+      <div class="post-card-meta">
+        <span class="post-card-date">{{ post.date | isoDate }}</span>
+        <div class="post-card-tags">
+          {% for tag in post.data.tags %}
+            {% if tag != "posts" %}
+              <a href="/tags/{{ tag | lower }}/" class="post-tag">{{ tag }}</a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </li>
+{% endfor %}
+</ul>
+
+<script>
+  const filterInput = document.getElementById('archive-filter');
+  const items = Array.from(document.querySelectorAll('#archive-list .post-card'));
+  filterInput.addEventListener('input', () => {
+    const q = filterInput.value.trim().toLowerCase();
+    items.forEach(li => {
+      li.style.display = (!q || li.dataset.search.includes(q)) ? '' : 'none';
+    });
+  });
+</script>

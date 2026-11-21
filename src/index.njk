@@ -1,0 +1,84 @@
+---
+layout: layouts/base.njk
+title: "Home"
+eleventyExcludeFromCollections: true
+---
+
+<div class="tools-grid">
+  <a href="/autoexec-generator/" class="tool-card">
+    <strong>Autoexec Config Generator</strong>
+    <span>Build &amp; download a clean CS2 autoexec.cfg</span>
+  </a>
+  <a href="/practice-config/" class="tool-card">
+    <strong>Practice Config Generator</strong>
+    <span>Build &amp; download a custom CS2 practice.cfg</span>
+  </a>
+  <a href="/servers/" class="tool-card">
+    <strong>CS2 KZ Server</strong>
+    <span>Connect to {{ site.serverHost }}</span>
+  </a>
+  <a href="/scammers/" class="tool-card">
+    <strong>Scammers List</strong>
+    <span>Search confirmed Steam scammers</span>
+  </a>
+</div>
+
+<h1 id="most-read" class="section-heading"><a href="#most-read">Most read</a></h1>
+
+<ul class="post-cards">
+{% for url in featured %}
+  {% for post in collections.posts %}
+    {% if post.url == url %}
+  <li class="post-card">
+    {% if post.data.cover %}
+    <div class="post-card-thumb" aria-hidden="true">
+      <img src="{{ post.data.cover }}" alt="{{ post.data.coverAlt or post.data.title }}" sizes="160px">
+    </div>
+    {% endif %}
+    <div class="post-card-body">
+      <a href="{{ post.url }}" class="post-card-title">{{ post.data.title }}</a>
+      <div class="post-card-meta">
+        <span class="post-card-date">{{ post.date | isoDate }}</span>
+        <div class="post-card-tags">
+          {% for tag in post.data.tags %}
+            {% if tag != "posts" %}
+              <a href="/tags/{{ tag | lower }}/" class="post-tag">{{ tag }}</a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </li>
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+</ul>
+
+<h2 id="latest-articles" class="section-heading" style="margin-top: 2.25rem;"><a href="#latest-articles">Latest articles</a></h2>
+
+<ul class="post-cards">
+{% for post in collections.posts | limit(5) %}
+  <li class="post-card">
+    {% if post.data.cover %}
+    <div class="post-card-thumb" aria-hidden="true">
+      <img src="{{ post.data.cover }}" alt="{{ post.data.coverAlt or post.data.title }}" sizes="160px">
+    </div>
+    {% endif %}
+    <div class="post-card-body">
+      <a href="{{ post.url }}" class="post-card-title">{{ post.data.title }}</a>
+      <div class="post-card-meta">
+        <span class="post-card-date">{{ post.date | isoDate }}</span>
+        <div class="post-card-tags">
+          {% for tag in post.data.tags %}
+            {% if tag != "posts" %}
+              <a href="/tags/{{ tag | lower }}/" class="post-tag">{{ tag }}</a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </li>
+{% endfor %}
+</ul>
+
+<p style="margin-top: 1.75rem;"><a href="/archive/" class="prompt">browse all &rarr;</a></p>
