@@ -4,8 +4,14 @@ eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- set staticUrls = ["/", "/archive/", "/topics/", "/autoexec-generator/", "/servers/", "/scammers/", "/report-scammer/", "/contact/", "/privacy-policy/"] %}
+{%- for u in staticUrls %}
+  <url>
+    <loc>{{ site.url }}{{ u }}</loc>
+  </url>
+{%- endfor %}
 {%- for page in collections.all %}
-  {%- if not page.data.draft and page.url %}
+  {%- if not page.data.draft and not page.data.noindex and page.url and page.url not in staticUrls %}
   <url>
     <loc>{{ site.url }}{{ page.url }}</loc>
     <lastmod>{{ page.date.toISOString() }}</lastmod>

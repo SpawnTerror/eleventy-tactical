@@ -11,6 +11,7 @@ layout: layouts/base.njk
 permalink: /tags/{{ tag | slugify }}/
 eleventyComputed:
   title: "{{ tag }}"
+  description: "Browse all {{ tag }} articles."
 ---
 
 <h1 id="topic"><a href="#topic">#{{ tag }}</a></h1>

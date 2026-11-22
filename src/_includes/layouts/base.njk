@@ -3,12 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="{{ description or site.description }}">
+  {% set metaDesc = description or site.description %}
+  <meta name="description" content="{{ metaDesc }}">
+  {% if noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:type" content="{{ 'article' if layout == 'layouts/post.njk' else 'website' }}">
+  <meta property="og:title" content="{{ title }} · {{ site.name }}">
+  <meta property="og:description" content="{{ metaDesc }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  {% if cover %}{% set ogImg %}{% ogImageUrl cover %}{% endset %}{% if ogImg %}<meta property="og:image" content="{{ site.url }}{{ ogImg }}">{% endif %}{% endif %}
+  <meta name="twitter:card" content="{{ 'summary_large_image' if cover else 'summary' }}">
+  <meta name="twitter:title" content="{{ title }} · {{ site.name }}">
+  <meta name="twitter:description" content="{{ metaDesc }}">
   <title>{{ title }} · {{ site.name }}</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><polygon points='16,2 29,9.5 29,22.5 16,30 3,22.5 3,9.5' fill='%230d1117' stroke='%2338bdf8' stroke-width='2'/><circle cx='16' cy='16' r='5' fill='none' stroke='%2338bdf8' stroke-width='2'/><line x1='16' y1='6' x2='16' y2='10' stroke='%2338bdf8' stroke-width='2'/><line x1='16' y1='22' x2='16' y2='26' stroke='%2338bdf8' stroke-width='2'/><line x1='6' y1='16' x2='10' y2='16' stroke='%2338bdf8' stroke-width='2'/><line x1='22' y1='16' x2='26' y2='16' stroke='%2338bdf8' stroke-width='2'/><circle cx='16' cy='16' r='1.5' fill='%2338bdf8'/></svg>">
   <style>
-    {% include "css/main.css" %}
+    {% set css %}{% include "css/main.css" %}{% endset %}{{ css | cssmin | safe }}
   </style>
   <link id="prism-theme" rel="stylesheet" href="/css/prism/dark-green.css">
   <script>

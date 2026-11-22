@@ -2,7 +2,9 @@ const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
 const markdownItContainer = require("markdown-it-container");
-const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");
+const path = require("path");
+const Image = require("@11ty/eleventy-img");
+const { eleventyImageTransformPlugin } = Image;
 
 const CALLOUTS = {
   info: {
@@ -72,6 +74,35 @@ module.exports = function(eleventyConfig) {
     return new Date(date).toISOString().split("T")[0];
   });
 
+  eleventyConfig.addAsyncShortcode("ogImageUrl", async function(coverPath) {
+    if (!coverPath) return "";
+    const outArg = process.argv.find(a => a.startsWith("--output="));
+    const outDir = outArg ? outArg.split("=")[1] : "_site";
+    const srcPath = path.join(__dirname, "src", coverPath.replace(/^\/+/, ""));
+    const metadata = await Image(srcPath, {
+      widths: [1200],
+      formats: ["jpeg"],
+      outputDir: path.join(__dirname, outDir, "img"),
+      urlPath: "/img/"
+    });
+    return metadata.jpeg && metadata.jpeg[0] ? metadata.jpeg[0].url : "";
+  });
+
+  eleventyConfig.addFilter("cssmin", function(code) {
+    if (!code) return "";
+    const urls = [];
+    let s = String(code).replace(/url\(([^)]+)\)/g, (m) => {
+      urls.push(m);
+      return `__URL_${urls.length - 1}__`;
+    });
+    s = s.replace(/\/\*[\s\S]*?\*\//g, "")
+         .replace(/\s+/g, " ")
+         .replace(/\s*([{}:;,>~+])\s*/g, "$1")
+         .replace(/;}/g, "}")
+         .trim();
+    return s.replace(/__URL_(\d+)__/g, (_, i) => urls[Number(i)]);
+  });
+
   eleventyConfig.addFilter("limit", function(array, limit) {
     if (!array) return [];
     return array.slice(0, limit);
@@ -79,8 +110,8 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     extensions: "html",
-    formats: ["avif", "webp", "auto"],
-    widths: [360, 820, 1440, "auto"],
+    formats: ["avif", "webp", "jpeg"],
+    widths: [360, 820, 1440],
     defaultAttributes: {
       loading: "lazy",
       decoding: "async",
