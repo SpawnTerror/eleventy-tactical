@@ -2,6 +2,8 @@
 
 A super-fast [Eleventy 3](https://www.11ty.dev/) theme crafted for Counter-Strike, FPS, and gaming community blogs — combining compact `16:9` cover cards, dual **CT-Side Blue / T-Side Amber** palettes, an opposite-contrast aim crosshair cursor, a live HUD status bar, and zero-backend client-side config generators.
 
+[Live demo at spawnterror.com](https://spawnterror.com)
+
 ## Screenshots
 
 ### Desktop
