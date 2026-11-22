@@ -4,13 +4,27 @@ A super-fast [Eleventy 3](https://www.11ty.dev/) theme crafted for Counter-Strik
 
 ## Screenshots
 
-> Add your own screenshots inside `./screenshots/` (`desktop-home.png`, `mobile-home.png`, `desktop-autoexec.png`, `desktop-practice.png`) and uncomment the table below:
->
-> ```markdown
-> | Desktop (CT-Side Blue Dark) | Mobile |
-> | --- | --- |
-> | ![Eleventy Tactical Desktop](./screenshots/desktop-home.png) | ![Eleventy Tactical Mobile](./screenshots/mobile-home.png) |
-> ```
+### Desktop
+
+| CT-Side Dark Blue (Default) | T-Side Dark Amber |
+| --- | --- |
+| ![Desktop CT-Side Dark Blue](./screenshots/spawnterror-mobile-desktop-dark-blue.png) | ![Desktop T-Side Dark Amber](./screenshots/spawnterror-mobile-desktop-dark-orange.png) |
+
+| CT-Side Light Blue | Updates Topic View |
+| --- | --- |
+| ![Desktop CT-Side Light Blue](./screenshots/spawnterror-mobile-desktop-light-blue.png) | ![Desktop Updates Topic](./screenshots/spawnterror-mobile-desktop-updates-tag.png) |
+
+### Mobile Colour Palettes
+
+| CT-Side Dark Blue | CT-Side Light Blue | T-Side Light Amber |
+| --- | --- | --- |
+| ![Mobile Dark Blue](./screenshots/spawnterror-mobile-theme-dark-blue.png) | ![Mobile Light Blue](./screenshots/spawnterror-mobile-theme-light-blue.png) | ![Mobile Light Amber](./screenshots/spawnterror-mobile-theme-light-orange.png) |
+
+### Mobile Views
+
+| Article View | Topics Directory | Community Servers |
+| --- | --- | --- |
+| ![Mobile Article](./screenshots/spawnterror-mobile-article.png) | ![Mobile Topics](./screenshots/spawnterror-mobile-topics.png) | ![Mobile Servers](./screenshots/spawnterror-mobile-servers.png) |
 
 ## Features
 
